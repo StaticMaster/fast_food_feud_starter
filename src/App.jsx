@@ -2,6 +2,10 @@ import * as React from "react"
 // IMPORT ANY NEEDED COMPONENTS HERE
 import { createDataSet } from "./data/dataset"
 import "./App.css"
+import Header from "./components/Header/Header"
+import Instructions from "./components/Instructions/Instructions"
+import Chip from "./components/Chip/Chip"
+import { useState } from "react"
 
 // don't move this!
 export const appInfo = {
@@ -21,6 +25,8 @@ export const appInfo = {
 const { data, categories, restaurants } = createDataSet()
 
 export function App() {
+
+  const [category, setCategory] = useState("")
   return (
     <main className="App">
       {/* CATEGORIES COLUMN */}
@@ -28,26 +34,33 @@ export function App() {
         <div className="categories options">
           <h2 className="title">Categories</h2>
           {/* YOUR CODE HERE */}
+          {categories.map((category, index) => (<Chip label={category} key={index} isActive={false} onClick = {() => setCategory(category)}></Chip>))}
+
         </div>
       </div>
 
       {/* MAIN COLUMN */}
       <div className="container">
-        {/* HEADER GOES HERE */}
+       {<Header title ={appInfo.title} tagline={appInfo.tagline} description={appInfo.description}/>
+ }
 
         {/* RESTAURANTS ROW */}
         <div className="RestaurantsRow">
           <h2 className="title">Restaurants</h2>
-          <div className="restaurants options">{/* YOUR CODE HERE */}</div>
+          <div className="restaurants options">{/* YOUR CODE HERE */}  
+          {restaurants.map((restaurant, index) => (<Chip label={restaurant} key={index}></Chip>))}
+          </div>
         </div>
 
         {/* INSTRUCTIONS GO HERE */}
+        <Instructions instructions={appInfo.instructions.start}></Instructions>
 
         {/* MENU DISPLAY */}
         <div className="MenuDisplay display">
           <div className="MenuItemButtons menu-items">
             <h2 className="title">Menu Items</h2>
             {/* YOUR CODE HERE */}
+
           </div>
 
           {/* NUTRITION FACTS */}
